@@ -110,6 +110,8 @@ export function LandingPage() {
                   radius="xl"
                   color="dark"
                   fw={500}
+                  component={Link}
+                  to="/login"
                 >
                   Buka LinkedOut di browser Anda
                 </Button>
@@ -238,7 +240,12 @@ export function LandingPage() {
             <Divider color="violet" />
             <Flex align="center" justify="space-between" py="xl">
               <Title size="h2">LinkedOut</Title>
-              <Button color="violet" radius="xl">
+              <Button
+                color="violet"
+                radius="xl"
+                component={Link}
+                to="/register"
+              >
                 Daftar
               </Button>
             </Flex>
