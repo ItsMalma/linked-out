@@ -14,6 +14,7 @@ import {
   Transition,
 } from "@mantine/core";
 import { useMediaQuery, useWindowScroll } from "@mantine/hooks";
+import { Link } from "react-router-dom";
 import classes from "./index.module.css";
 
 export function LandingPage() {
@@ -57,7 +58,14 @@ export function LandingPage() {
               >
                 <Flex align="center" justify="space-between">
                   <Title size="h2">LinkedOut</Title>
-                  <Button color="white" c="black" radius="xl" fw="bold">
+                  <Button
+                    bg="white"
+                    c="black"
+                    radius="xl"
+                    fw="bold"
+                    component={Link}
+                    to="/login"
+                  >
                     Login
                   </Button>
                 </Flex>
@@ -123,7 +131,7 @@ export function LandingPage() {
               gap={{ base: "xl", md: "5rem" }}
               align="center"
             >
-              <Image src="/Profile.svg" alt="Search" flex="1 1 0%" maw={512} />
+              <Image src="/Profile.svg" alt="Profile" flex="1 1 0%" maw={512} />
               <Flex direction="column" flex="1 1 0%" gap="lg">
                 <Title fz={{ base: "h2", xs: "h1", md: "3rem" }}>
                   Buat pekerjaan menemukan Anda
@@ -151,7 +159,7 @@ export function LandingPage() {
             >
               <Image
                 src="/Communication.svg"
-                alt="Search"
+                alt="Communication"
                 flex="1 1 0%"
                 maw={512}
               />

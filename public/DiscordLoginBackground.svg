@@ -1,0 +1,72 @@
+<svg class="artwork__94141" preserveAspectRatio="xMinYMin slice" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1700 1200">
+  <defs>
+    <linearGradient id="linear-gradient" x1="269.71" x2="269.71" y1="800.4" y2="913.29" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#29cc7a"></stop>
+      <stop offset="1" stop-color="#038567"></stop>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="1512.99" x2="1503.54" y1="519.46" y2="476.33"
+      gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffe75c"></stop>
+      <stop offset="1" stop-color="#ffc619"></stop>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="1441.31" x2="1426.37" y1="493.59" y2="538.11"
+      xlink:href="#linear-gradient-2"></linearGradient>
+    <linearGradient id="linear-gradient-4" x1="1170.7" x2="1126.43" y1="805.19" y2="847.49"
+      gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d11583"></stop>
+      <stop offset="1" stop-color="#eb50a4"></stop>
+    </linearGradient>
+    <linearGradient id="linear-gradient-5" x1="693.92" x2="693.92" y1="1235.03" y2="1193.91"
+      gradientTransform="rotate(-21.3 -1852.872 -1403.071)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#66bcff"></stop>
+      <stop offset="1" stop-color="#8cd9ff"></stop>
+    </linearGradient>
+    <linearGradient id="linear-gradient-6" x1="-6.39" x2="-57.56" y1="1177.84" y2="1139.89"
+      gradientTransform="rotate(-4.2 -13157.002 -13444.26)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffc619"></stop>
+      <stop offset="1" stop-color="#ffe75c"></stop>
+    </linearGradient>
+  </defs>
+  <path fill="#845ef7" d="M0 0H1700V1200H0z" data-name="Layer 4"></path>
+  <g data-name="Layer 5">
+    <path fill="#6270fc"
+      d="M935.8 386.9c-2.1 0-4.2.2-6.3.3a126.6 126.6 0 00-176.9-48.4 126.3 126.3 0 00-225.3 48.3 64.7 64.7 0 00-8.6-5.8c-34.2-19.9-78.7-7-99.3 28.6-18.4 31.7-11.6 70.9 14.4 93.1-14.2 9.1-23.3 23-23.3 38.6 0 27.4 28 49.6 62.7 49.6a74.7 74.7 0 0034.9-8.4A126.4 126.4 0 00746 550.7a126.2 126.2 0 00166.8-20.2 73.6 73.6 0 0096.7-69.9 73.7 73.7 0 00-73.7-73.7z">
+    </path>
+    <path fill="#6270fc"
+      d="M1210.9 311.8A65.4 65.4 0 001173 324a73.7 73.7 0 00-139.8 32.4 78.3 78.3 0 001.1 12.9c-32.9 15-64.1 40.2-87.4 72.8h264a65.2 65.2 0 000-130.3z">
+    </path>
+    <path fill="#707cff"
+      d="M1035.5 617.4a115.9 115.9 0 10-199-109.1 117.7 117.7 0 104.3 194.1 76 76 0 00137.2-.7 51 51 0 1057.5-84.3z">
+    </path>
+  </g>
+  <path fill="#6a77fc"
+    d="M990 243.1H579.4a3 3 0 01-2.3-5c24.6-29.4 61.4-30.9 101.2-23.2 22.4-86.3 123-85.3 157.3-32.2 36.6-28.2 159-31.3 160.2 54.5a5.8 5.8 0 01-5.8 5.9z"
+    data-name="Layer 25"></path>
+  <path fill="#6874f7"
+    d="M57.9 530.5c89.2-45.1 152.1-10.2 152.1-10.2 44.1-13.7 83-4.1 103 11.6 12.5 9.7-15.5 8-78.3 8H60.2a5 5 0 01-5-5 4.9 4.9 0 012.7-4.4z"
+    data-name="Layer 24"></path>
+  <path fill="#6874f7" d="M1525.8 824.6a34.7 34.7 0 00-66.9-12.1 33.3 33.3 0 00-7.8-.9 36.3 36.3 0 00-27.8 13h102.5z"
+    data-name="Layer 23"></path>
+  <path fill="#91ffad"
+    d="M240.6 690.9a30.2 30.2 0 01-13.5-20.8l-2.2-14.6a1.4 1.4 0 00-1.4-1.2 1.4 1.4 0 00-1.5 1.2l-2.2 14.6a29.7 29.7 0 01-13.4 20.8l-1.9 1.2a1.7 1.7 0 00-.7 1.3 1.5 1.5 0 00.7 1.2l1.9 1.2a29.7 29.7 0 0113.4 20.8l2.2 14.6a1.4 1.4 0 001.5 1.2 1.4 1.4 0 001.4-1.2l2.2-14.6a30.2 30.2 0 0113.5-20.8l1.8-1.2a1.3 1.3 0 00.7-1.2 1.5 1.5 0 00-.7-1.3z"
+    data-name="Layer 20"></path>
+  <path fill="#66bcff"
+    d="M1376.2 297.5a24.6 24.6 0 01-11.1-17.2l-1.8-12a1.3 1.3 0 00-1.2-1.1 1.3 1.3 0 00-1.2 1.1l-1.8 12a25 25 0 01-11.1 17.2l-1.6 1a1.3 1.3 0 00-.6 1 1.3 1.3 0 00.6 1l1.6 1a25.2 25.2 0 0111.1 17.3l1.8 12a1.2 1.2 0 001.2 1 1.2 1.2 0 001.2-1l1.8-12a24.8 24.8 0 0111.1-17.3l1.6-1a1.2 1.2 0 00.5-1 1.2 1.2 0 00-.5-1z"
+    data-name="Layer 19"></path>
+  <path fill="#3442d9"
+    d="M1464.3 954.2a44.2 44.2 0 01-19.8-30.6l-3.2-21.4a2.1 2.1 0 00-2.1-1.8 2.1 2.1 0 00-2.1 1.8l-3.2 21.4a44.2 44.2 0 01-19.8 30.6l-2.8 1.8a2.1 2.1 0 00-.9 1.8v.2a2.1 2.1 0 00.9 1.8l2.8 1.8a44 44 0 0119.8 30.6l3.2 21.3a2.1 2.1 0 002.1 1.9 2.1 2.1 0 002.1-1.9l3.2-21.3a44 44 0 0119.8-30.6l2.8-1.8a2.2 2.2 0 001-1.8v-.2a2.2 2.2 0 00-1-1.8z"
+    data-name="Layer 18"></path>
+  <path fill="#ff78b9"
+    d="M789.5 845.4a13.5 13.5 0 01-6.1-9.3l-.9-6.6a.9.9 0 00-.7-.6.6.6 0 00-.6.6l-1 6.6a13.5 13.5 0 01-6.1 9.3l-.8.6a.5.5 0 00-.3.5.5.5 0 00.3.5l.8.6a13.5 13.5 0 016.1 9.3l1 6.6a.6.6 0 00.6.6.9.9 0 00.7-.6l.9-6.6a13.5 13.5 0 016.1-9.3l.8-.6a.5.5 0 00.3-.5.5.5 0 00-.3-.5z"
+    data-name="Layer 17"></path>
+  <path fill="#ff78b9"
+    d="M843.2 146.5a8.2 8.2 0 01-3.7-5.8l-.6-4c0-.2-.2-.3-.4-.3s-.4.1-.4.3l-.6 4a8.2 8.2 0 01-3.7 5.8l-.5.3-.2.3c0 .1.1.2.2.3l.5.3a8.2 8.2 0 013.7 5.8l.6 4c0 .2.2.3.4.3s.4-.1.4-.3l.6-4a8.2 8.2 0 013.7-5.8l.5-.3c.1-.1.2-.2.2-.3l-.2-.3z"
+    data-name="Layer 16"></path>
+  <path fill="#6874f7"
+    d="M537.2 82.7a20.5 20.5 0 00-17 8.9 43.1 43.1 0 00-17.6-3.8 42.6 42.6 0 00-27.9 10.3h82.5a20.8 20.8 0 00-20-15.4z"
+    data-name="Layer 13"></path>
+  <path fill="#6874f7"
+    d="M1193 1115.1a15.7 15.7 0 0015.6-18.5 111.8 111.8 0 00-213.8-20.7 117.2 117.2 0 00-111.3 35.2 2.4 2.4 0 001.8 4H1193z"
+    data-name="Layer 8"></path>
+</svg>
