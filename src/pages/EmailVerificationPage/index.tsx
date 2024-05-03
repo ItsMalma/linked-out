@@ -8,23 +8,29 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import { useForm, zodResolver } from "@mantine/form";
+import { useForm } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
+import { valibotResolver } from "mantine-form-valibot-resolver";
 import { useCallback, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { authVerify } from "../../apis/auth";
+import { isApiErrorValues } from "../../apis/common";
 import {
   EmailVerificationFormValues,
   emailVerificationFormSchema,
 } from "./schema";
 
 export function EmailVerificationPage() {
+  const { nik } = useParams();
+
   const navigate = useNavigate();
 
   const form = useForm<EmailVerificationFormValues>({
     mode: "uncontrolled",
     initialValues: {
-      kode: "",
+      code: "",
     },
-    validate: zodResolver(emailVerificationFormSchema),
+    validate: valibotResolver(emailVerificationFormSchema),
     validateInputOnBlur: true,
     validateInputOnChange: true,
   });
@@ -32,10 +38,39 @@ export function EmailVerificationPage() {
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const onSubmit = useCallback(
-    function () {
-      navigate("/login");
+    function (values: EmailVerificationFormValues) {
+      if (!nik) return;
+
+      authVerify(
+        nik,
+        values.code,
+        function () {
+          navigate("/login");
+        },
+        function (error) {
+          console.error(error);
+          if (error instanceof Error) {
+            notifications.show({
+              withCloseButton: false,
+              color: "red",
+              title: "Gagal memverifikasi pengguna",
+              message:
+                "Terjadi kesalahan pada server saat memverifikasi pengguna.",
+            });
+          } else if (isApiErrorValues(error)) {
+            form.setErrors(error);
+          } else {
+            notifications.show({
+              withCloseButton: false,
+              color: "red",
+              title: "Gagal memverifikasi pengguna",
+              message: error,
+            });
+          }
+        }
+      );
     },
-    [navigate]
+    [form, navigate, nik]
   );
 
   return (
@@ -82,7 +117,7 @@ export function EmailVerificationPage() {
                 <Text>Kami telah mengirimkan kode ke email Anda!</Text>
                 <PinInput
                   w="100%"
-                  {...form.getInputProps("kode")}
+                  {...form.getInputProps("code")}
                   length={6}
                   inputMode="numeric"
                   size="md"

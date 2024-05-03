@@ -11,26 +11,59 @@ import {
   Text,
   TextInput,
 } from "@mantine/core";
-import { useForm, zodResolver } from "@mantine/form";
+import { useForm } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
+import { valibotResolver } from "mantine-form-valibot-resolver";
 import { useCallback } from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
+import { authLogin } from "../../apis/auth";
+import { isApiErrorValues } from "../../apis/common";
 import { LoginFormValues, loginFormSchema } from "./schema";
 
 export function LoginPage() {
   const form = useForm<LoginFormValues>({
     mode: "uncontrolled",
     initialValues: {
-      emailAtauNomorHP: "",
-      kataSandi: "",
+      emailOrPhoneNumber: "",
+      password: "",
     },
-    validate: zodResolver(loginFormSchema),
-    validateInputOnBlur: true,
-    validateInputOnChange: true,
+    validate: valibotResolver(loginFormSchema),
   });
 
-  const onSubmit = useCallback(function (values: LoginFormValues) {
-    console.log(values);
-  }, []);
+  const [, setCookie] = useCookies(["token"]);
+
+  const onSubmit = useCallback(
+    function (values: LoginFormValues) {
+      authLogin(
+        values,
+        function (token) {
+          setCookie("token", token);
+        },
+        function (error) {
+          console.error(error);
+          if (error instanceof Error) {
+            notifications.show({
+              withCloseButton: false,
+              color: "red",
+              title: "Gagal login",
+              message: "Terjadi kesalahan pada server saat login.",
+            });
+          } else if (isApiErrorValues(error)) {
+            form.setErrors(error);
+          } else if (typeof error == "string") {
+            notifications.show({
+              withCloseButton: false,
+              color: "red",
+              title: "Gagal login",
+              message: error,
+            });
+          }
+        }
+      );
+    },
+    [form, setCookie]
+  );
 
   return (
     <BackgroundImage src="/DiscordLoginBackground.svg" bgsz="auto">
@@ -69,7 +102,7 @@ export function LoginPage() {
                       fw: 600,
                     }}
                     w="100%"
-                    {...form.getInputProps("emailAtauNomorHP")}
+                    {...form.getInputProps("emailOrPhoneNumber")}
                   />
                   <Flex direction="column">
                     <PasswordInput
@@ -79,7 +112,7 @@ export function LoginPage() {
                         fw: 600,
                       }}
                       w="100%"
-                      {...form.getInputProps("kataSandi")}
+                      {...form.getInputProps("password")}
                     />
                     <Anchor c="violet">Lupa kata sandi?</Anchor>
                   </Flex>

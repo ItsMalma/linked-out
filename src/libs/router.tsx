@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
     Component: RegisterPage,
   },
   {
-    path: "/email-verification",
+    path: "/email-verification/:nik",
     Component: EmailVerificationPage,
   },
 ]);

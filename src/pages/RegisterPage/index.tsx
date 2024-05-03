@@ -1,38 +1,107 @@
-import { Anchor, BackgroundImage, Flex, Paper, Text } from "@mantine/core";
-import { useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
+import {
+  Anchor,
+  BackgroundImage,
+  Box,
+  Button,
+  Flex,
+  Paper,
+  SimpleGrid,
+  Stack,
+  Text,
+} from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import { valibotResolver } from "mantine-form-valibot-resolver";
+import { useCallback, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { isApiErrorValues } from "../../apis/common";
+import { userRegister } from "../../apis/user";
 import { FirstRegisterForm } from "./FirstForm";
 import { SecondRegisterForm } from "./SecondForm";
-import { useRegisterStep } from "./useRegisterStep";
+import { RegisterFormProvider, useRegisterForm } from "./form-context";
+import {
+  RegisterFormValues,
+  firstRegisterFormSchema,
+  secondRegisterFormSchema,
+} from "./schemas";
 
 export function RegisterPage() {
-  const { reset, currentStep, values } = useRegisterStep();
+  const [step, setStep] = useState(1);
 
-  useEffect(function () {
-    reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
-  const form = useMemo(
-    function () {
-      switch (currentStep) {
-        case 1:
-          return <FirstRegisterForm />;
-        case 2:
-          return <SecondRegisterForm />;
-      }
+  const form = useRegisterForm({
+    mode: "uncontrolled",
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      nik: "",
+      major: "",
+      email: "",
+      phoneNumber: "",
+      password: "",
+      passwordConfirmation: "",
     },
-    [currentStep]
+    validate: function (values) {
+      if (step == 1) {
+        return valibotResolver(firstRegisterFormSchema)(values);
+      } else if (step == 2) {
+        return valibotResolver(secondRegisterFormSchema)(values);
+      }
+      return {};
+    },
+  });
+
+  const navigate = useNavigate();
+
+  const onSubmit = useCallback(
+    function (values: RegisterFormValues) {
+      userRegister(
+        values,
+        function (data) {
+          navigate(`/email-verification/${data.nik}`);
+        },
+        function (error) {
+          console.error(error);
+          if (error instanceof Error) {
+            notifications.show({
+              withCloseButton: false,
+              color: "red",
+              title: "Gagal memverifikasi pengguna",
+              message:
+                "Terjadi kesalahan pada server saat memverifikasi pengguna.",
+            });
+          } else if (isApiErrorValues(error)) {
+            form.setErrors(error);
+            if (error.firstName || error.lastName || error.nik || error.major) {
+              setStep(1);
+            }
+          } else if (typeof error == "string") {
+            notifications.show({
+              withCloseButton: false,
+              color: "red",
+              title: "Gagal memverifikasi pengguna",
+              message: error,
+            });
+          }
+        }
+      );
+    },
+    [form, navigate]
   );
 
-  const titleText = useMemo(
+  const onNext = useCallback(
     function () {
-      if (values?.namaDepan) {
-        return `Halo, ${values.namaDepan}!`;
+      if (!form.validate().hasErrors) {
+        if (step == 2) {
+          formRef.current?.requestSubmit();
+          return;
+        }
       }
-      return "Pendaftaran akun";
+      if (step <= 2 && !form.validate().hasErrors) {
+        setStep(step + 1);
+      }
     },
-    [values]
+    [form, step]
   );
 
   return (
@@ -57,9 +126,27 @@ export function RegisterPage() {
         >
           <Flex w="100%" direction="column" align="center" gap="lg">
             <Text fz="h2" fw={600}>
-              {titleText}
+              {step == 2
+                ? `Halo, ${form.getValues().firstName}!`
+                : "Pendaftaran akun"}
             </Text>
-            {form}
+            <RegisterFormProvider form={form}>
+              <Box
+                ref={formRef}
+                component="form"
+                w="100%"
+                onSubmit={form.onSubmit(onSubmit)}
+              >
+                <Stack w="100%">
+                  <SimpleGrid cols={{ base: 1 }}>
+                    {step == 1 ? <FirstRegisterForm /> : <SecondRegisterForm />}
+                  </SimpleGrid>
+                  <Button color="violet" size="md" onClick={onNext}>
+                    {step < 1 ? "Lanjut" : "Login"}
+                  </Button>
+                </Stack>
+              </Box>
+            </RegisterFormProvider>
             <Text>
               Sudah memiliki akun?{" "}
               <Anchor c="violet" component={Link} to="/login">

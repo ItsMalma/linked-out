@@ -1,34 +1,16 @@
-import { isMobilePhone } from "validator";
-import { z } from "zod";
+import * as v from "valibot";
+import { isEmail, isMobilePhone } from "validator";
 
-export const loginFormSchema = z.object({
-  emailAtauNomorHP: z.union(
-    [
-      z
-        .string({
-          invalid_type_error: "Tidak valid",
-          required_error: "Harus diisi",
-        })
-        .min(1, "Harus diisi")
-        .email("Tidak valid"),
-      z
-        .string({
-          invalid_type_error: "Tidak valid",
-          required_error: "Harus diisi",
-        })
-        .min(1, "Harus diisi")
-        .refine(isMobilePhone, "Tidak valid"),
-    ],
-    {
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    }
-  ),
-  kataSandi: z
-    .string({
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    })
-    .min(1, "Harus diisi"),
+export const loginFormSchema = v.object({
+  emailOrPhoneNumber: v.string("Tidak valid", [
+    v.minLength(1, "Tidak boleh kosong"),
+    v.custom(function (input) {
+      return isEmail(input) || isMobilePhone(input);
+    }, "Format salah"),
+  ]),
+  password: v.string("Tidak valid", [
+    v.minLength(1, "Tidak boleh kosong"),
+    v.minLength(8, "Minimal 8 karakter"),
+  ]),
 });
-export type LoginFormValues = z.infer<typeof loginFormSchema>;
+export type LoginFormValues = v.Input<typeof loginFormSchema>;

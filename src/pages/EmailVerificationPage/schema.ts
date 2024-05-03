@@ -1,14 +1,8 @@
-import { z } from "zod";
+import * as v from "valibot";
 
-export const emailVerificationFormSchema = z.object({
-  kode: z
-    .string({
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    })
-    .min(6, "Harus 6 karakter")
-    .max(6, "Harus 6 karakter"),
+export const emailVerificationFormSchema = v.object({
+  code: v.string("Tidak valid", [v.length(6, "Harus 6 karakter")]),
 });
-export type EmailVerificationFormValues = z.infer<
+export type EmailVerificationFormValues = v.Input<
   typeof emailVerificationFormSchema
 >;

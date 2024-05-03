@@ -1,133 +1,46 @@
-import { isMobilePhone, isPostalCode } from "validator";
-import { z } from "zod";
+import * as v from "valibot";
+import { isMobilePhone, isNumeric } from "validator";
 
-export const firstRegisterFormSchema = z.object({
-  emailAtauNomorHP: z.union(
-    [
-      z
-        .string({
-          invalid_type_error: "Tidak valid",
-          required_error: "Harus diisi",
-        })
-        .min(1, "Harus diisi")
-        .email("Tidak valid"),
-      z
-        .string({
-          invalid_type_error: "Tidak valid",
-          required_error: "Harus diisi",
-        })
-        .min(1, "Harus diisi")
-        .refine(isMobilePhone, "Tidak valid"),
-    ],
-    {
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    }
-  ),
-  kataSandi: z
-    .string({
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    })
-    .min(1, "Harus diisi")
-    .min(8, "Minimal 8 karakter"),
-  namaDepan: z
-    .string({
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    })
-    .min(1, "Harus diisi"),
-  namaBelakang: z.string({
-    invalid_type_error: "Tidak valid",
-    required_error: "Harus diisi",
-  }),
-  nik: z
-    .string({
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    })
-    .min(16, "Tidak valid")
-    .max(16, "Tidak valid"),
-  negara: z
-    .string({
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    })
-    .min(1, "Harus diisi"),
-  kodePos: z
-    .string({
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    })
-    .min(1, "Harus diisi")
-    .refine(function (value) {
-      return isPostalCode(value, "any");
-    }, "Tidak valid"),
-  wilayah: z
-    .string({
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    })
-    .min(1, "Harus diisi"),
+export const firstRegisterFormSchema = v.object({
+  firstName: v.string("Tidak valid", [v.minLength(1, "Tidak boleh kosong")]),
+  lastName: v.string("Tidak valid"),
+  nik: v.string("Tidak valid", [
+    v.length(16, "Format NIK salah"),
+    v.custom(isNumeric, "Format NIK salah"),
+  ]),
+  major: v.string("Tidak valid", [v.minLength(1, "Tidak boleh kosong")]),
 });
-export type FirstRegisterFormValues = z.infer<typeof firstRegisterFormSchema>;
+export type FirstRegisterFormValues = v.Input<typeof firstRegisterFormSchema>;
 
-export const secondRegisterFormSchema = z.object({
-  namaPekerjaanTerakhirBekerja: z
-    .string({
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    })
-    .min(1, "Harus diisi"),
-  tipePekerjaanTerakhirBekerja: z
-    .string({
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    })
-    .min(1, "Harus diisi"),
-  namaPerusahaanTerakhirBekerja: z
-    .string({
-      invalid_type_error: "Tidak valid",
-      required_error: "Harus diisi",
-    })
-    .min(1, "Harus diisi"),
-  mendaftarSebagai: z.enum(["JobSeeker", "Rekruter"], {
-    errorMap: function () {
-      return {
-        message: "Pilihan tidak valid",
-      };
-    },
-  }),
-  namaPekerjaanYangDibutuhkan: z
-    .array(
-      z.string({
-        invalid_type_error: "Tidak valid",
-        required_error: "Tidak valid",
-      }),
-      {
-        invalid_type_error: "Tidak valid",
-        required_error: "Harus diisi",
-      }
-    )
-    .min(1, "Minimal 1"),
-  lokasiPekerjaanYangDibutuhkan: z
-    .array(
-      z.string({
-        invalid_type_error: "Tidak valid",
-        required_error: "Tidak valid",
-      }),
-      {
-        invalid_type_error: "Tidak valid",
-        required_error: "Harus diisi",
-      }
-    )
-    .min(1, "Minimal 1"),
-  dapatRemote: z.boolean({
-    invalid_type_error: "Tidak valid",
-    required_error: "Harus diisi",
-  }),
-});
-export type SecondRegisterFormValues = z.infer<typeof secondRegisterFormSchema>;
+export const secondRegisterFormSchema = v.object(
+  {
+    email: v.string("Tidak valid", [
+      v.minLength(1, "Tidak boleh kosong"),
+      v.email("Format email salah"),
+    ]),
+    phoneNumber: v.string("Tidak valid", [
+      v.minLength(1, "Tidak boleh kosong"),
+      v.custom(isMobilePhone, "Format nomor telepon salah"),
+    ]),
+    password: v.string("Tidak valid", [
+      v.minLength(1, "Tidak boleh kosong"),
+      v.minLength(8, "Minimal 8 karakter"),
+    ]),
+    passwordConfirmation: v.string("Tidak valid", [
+      v.minLength(1, "Tidak boleh kosong"),
+      v.minLength(8, "Minimal 8 karakter"),
+    ]),
+  },
+  [
+    v.forward(
+      v.custom(function ({ password, passwordConfirmation }) {
+        return password === passwordConfirmation;
+      }, "Konfirmasi kata sandi tidak sama"),
+      ["passwordConfirmation"]
+    ),
+  ]
+);
+export type SecondRegisterFormValues = v.Input<typeof secondRegisterFormSchema>;
 
 export type RegisterFormValues = FirstRegisterFormValues &
   SecondRegisterFormValues;
